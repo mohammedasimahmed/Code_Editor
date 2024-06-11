@@ -16,10 +16,11 @@ const CodeEditor = () => {
 
   const runProgram = async () => {
     if (editorRef.current) {
+      setOutput("Loading...");
       const program = editorRef.current?.getValue();
       const input = inputRef.current?.getValue();
       console.log(program);
-      let resp = await fetch("http://localhost:3000/api/execute", {
+      let resp = await fetch("/api/execute", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
