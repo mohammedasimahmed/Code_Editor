@@ -14,7 +14,7 @@ A powerful, user-friendly code editor built with **Next.js** that allows you to 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/NeonCode.git
+   git clone https://github.com/mohammedasimahmed/NeonCode.git
    cd NeonCode
    ```
 
