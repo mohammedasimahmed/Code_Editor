@@ -33,7 +33,7 @@ A powerful, user-friendly code editor built with **Next.js** that allows you to 
 
 You can also run the project using Docker.Make sure you have Docker installed and use the following command:
 ```bash
-   docker run -it -p 3000:3000 mohammedasimahmed/neoncode
+docker run -it -p 3000:3000 mohammedasimahmed/neoncode
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
