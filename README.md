@@ -29,6 +29,14 @@ A powerful, user-friendly code editor built with **Next.js** that allows you to 
    ```
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## 🐳 Docker
+
+You can also run the project using Docker.Make sure you have Docker installed and use the following command:
+```bash
+docker run -it -p 3000:3000 mohammedasimahmed/neoncode
+```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 ## 📖 Usage
 
 1. **Open the editor**: Navigate to the URL where the editor is hosted.
