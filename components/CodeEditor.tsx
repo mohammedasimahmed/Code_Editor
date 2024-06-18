@@ -37,10 +37,21 @@ const CodeEditor = () => {
 
   return (
     <div>
+      <div className="text-center text-2xl bg-gray-900 text-white p-2">
+        Neon Code
+      </div>
       <div className="flex">
-        <div>
+        <div
+          style={{
+            borderRight: "0.1px solid white",
+            borderBottom: "0.1px solid white",
+          }}
+        >
+          <div className="flex-1 text-center text-lg bg-green-900 text-white">
+            Code
+          </div>
           <Editor
-            height="95vh"
+            height="84vh"
             width="50vw"
             defaultLanguage="cpp"
             defaultValue="// some comment"
@@ -49,15 +60,21 @@ const CodeEditor = () => {
           />
         </div>
         <div>
+          <div className="flex-1 text-center bg-purple-900 text-lg text-white">
+            Input
+          </div>
           <Editor
-            height="43vh"
+            height="33vh"
             width="50vw"
             defaultLanguage="cpp"
             theme="vs-dark"
             onMount={handleInputDidMount}
           />
+          <div className="text-center bg-green-900 text-white text-lg">
+            Code
+          </div>
           <Editor
-            height="52vh"
+            height="47.3vh"
             width="50vw"
             defaultLanguage="cpp"
             theme="vs-dark"
