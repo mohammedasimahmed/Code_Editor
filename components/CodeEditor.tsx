@@ -40,19 +40,19 @@ const CodeEditor = () => {
       <div className="text-center text-2xl bg-gray-900 text-white p-2">
         Neon Code
       </div>
-      <div className="flex">
+      <div className="flex flex-col sm:flex-row">
         <div
           style={{
             borderRight: "0.1px solid white",
             borderBottom: "0.1px solid white",
           }}
+          className="w-full sm:w-[50vw]"
         >
-          <div className="flex-1 text-center text-lg bg-green-900 text-white">
+          <div className="flex-1 text-center text-lg bg-green-900 text-white border-none">
             Code
           </div>
           <Editor
-            height="84vh"
-            width="50vw"
+            height="84.3vh"
             defaultLanguage="cpp"
             defaultValue="// some comment"
             theme="vs-dark"
@@ -63,24 +63,26 @@ const CodeEditor = () => {
           <div className="flex-1 text-center bg-purple-900 text-lg text-white">
             Input
           </div>
-          <Editor
-            height="33vh"
-            width="50vw"
-            defaultLanguage="cpp"
-            theme="vs-dark"
-            onMount={handleInputDidMount}
-          />
-          <div className="text-center bg-green-900 text-white text-lg">
-            Code
+          <div className="w-full sm:w-[50vw]">
+            <Editor
+              height="33vh"
+              defaultLanguage="cpp"
+              theme="vs-dark"
+              onMount={handleInputDidMount}
+            />
           </div>
-          <Editor
-            height="47.3vh"
-            width="50vw"
-            defaultLanguage="cpp"
-            theme="vs-dark"
-            value={output}
-            options={{ readOnly: true }}
-          />
+          <div className="text-center bg-green-900 text-white text-lg">
+            Output
+          </div>
+          <div className="w-full sm:w-[50vw]">
+            <Editor
+              height="47.5vh"
+              defaultLanguage="cpp"
+              theme="vs-dark"
+              value={output}
+              options={{ readOnly: true }}
+            />
+          </div>
           {/* <div
             style={{ backgroundColor: "#1e1e1e" }}
             className="w-[50vw] h-[50vh] p-2 text-white whitespace-pre"
@@ -90,8 +92,8 @@ const CodeEditor = () => {
         </div>
       </div>
       <div
-        style={{ backgroundColor: "#1e1e1e", borderTopColor: "white" }}
-        className="flex justify-center mt-[0.2px]"
+        // style={{ borderTopColor: "white" }}
+        className="flex justify-center mt-[0.2px] bg-gray-900"
       >
         <button
           onClick={runProgram}
