@@ -8,6 +8,7 @@ A powerful, user-friendly code editor built with **Next.js** that allows you to 
 - ✨ **Real-time Code Editing**: Enjoy smooth, syntax-highlighted code editing.
 - 💬 **User Input Support**: Easily provide input data for your code.
 - ⚡ **Instant Code Execution**: Run your code and get immediate feedback.
+- 🌐 **Multiple Language Support**: Execute code in multiple programming languages.
 - 📱 **Responsive Design**: Optimized for all devices, from desktops to mobiles.
 
 ## 🛠️ Installation
@@ -48,6 +49,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## 🌐 Supported Languages
 
 - C++
+- Python
+- Javascript
 
 ## 🤝 Contributing
 
