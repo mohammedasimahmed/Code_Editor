@@ -16,12 +16,12 @@ async function executeScript(code: string, input: string, scriptType: string) {
       break;
     case "Python":
       filePath = path.join(currentFolder, `${idx}.py`);
-      programPath = "python"; // Use 'python' interpreter
+      programPath = "python";
       cmd = `python ${filePath}`;
       break;
     case "Javascript":
       filePath = path.join(currentFolder, `${idx}.js`);
-      programPath = "node"; // Use 'node' interpreter
+      programPath = "node";
       cmd = `node ${filePath}`;
       break;
     default:
@@ -39,7 +39,7 @@ async function executeScript(code: string, input: string, scriptType: string) {
     const error_desc = compilation_error.data
       .map((buffcode: number) => String.fromCharCode(buffcode))
       .join("");
-    console.error("Compilation error:", error_desc);
+    // console.error("Compilation error:", error_desc);
     cleanup();
     return new Response(JSON.stringify({ output: error_desc }), {
       headers: { "Content-Type": "application/json" },
@@ -61,21 +61,23 @@ async function executeScript(code: string, input: string, scriptType: string) {
       output =
         "Execution timed out: code execution took longer than 2 seconds.";
     } else if (runtimeProcess.error) {
-      console.log("runtimeProcess.error", runtimeProcess.error);
-      console.error("Memory limit exceeded");
+      // console.error("Memory limit exceeded");
       output = "Memory limit exceeded";
-    } else if (runtimeProcess.status !== null && runtimeProcess.status > 0) {
+    } else if (
+      (runtimeProcess.status !== null && runtimeProcess.status > 0) ||
+      runtimeProcess.signal
+    ) {
       let runtime_error = JSON.parse(JSON.stringify(runtimeProcess.stderr));
-      const err_desc: string = String(
+      const runtime_error_desc: string = String(
         runtime_error.data
           .map((buffcode: number) => String.fromCharCode(buffcode))
           .join("")
       );
-      console.error("Runtime error:", err_desc);
-      if (err_desc.trim() == "") {
+      console.error("Runtime error:", runtime_error_desc);
+      if (runtime_error_desc.trim() == "") {
         output = "Runtime error";
       } else {
-        output = err_desc;
+        output = runtime_error_desc;
       }
     } else {
       output = runtimeProcess.stdout.toString();
