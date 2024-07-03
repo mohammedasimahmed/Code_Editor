@@ -31,7 +31,7 @@ async function executeScript(code: string, input: string, scriptType: string) {
   fs.writeFileSync(filePath, code);
 
   try {
-    if(scriptType=="CPP"){
+    if (scriptType == "CPP") {
       execSync(cmd);
     }
   } catch (error: any) {
@@ -45,28 +45,44 @@ async function executeScript(code: string, input: string, scriptType: string) {
       headers: { "Content-Type": "application/json" },
     });
   }
+  let output: string = "";
 
-  const childProcess = spawnSync(programPath, [filePath], {
-    input: input,
-    timeout: 2000,
-    killSignal: "SIGTERM",
-    maxBuffer: 10 * 1024 * 1024,
-  });
-
-  let output: string;
-
-  if (childProcess.signal === "SIGTERM") {
-    console.error("Execution timed out: Execution took longer than 2 seconds.");
-    output = "Execution timed out: code execution took longer than 2 seconds.";
-  } else if (childProcess.error) {
-    console.log(childProcess.error);
-    console.error("Memory limit exceeded");
-    output = "Memory limit exceeded";
-  } else if (childProcess.status!==null && childProcess.status > 0) {
-    console.error("Runtime error");
-    output = "Runtime error";
-  } else {
-    output = childProcess.stdout.toString();
+  try {
+    const runtimeProcess = spawnSync(programPath, [filePath], {
+      input: input,
+      timeout: 2000,
+      killSignal: "SIGTERM",
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    if (runtimeProcess.signal === "SIGTERM") {
+      console.error(
+        "Execution timed out: Execution took longer than 2 seconds."
+      );
+      output =
+        "Execution timed out: code execution took longer than 2 seconds.";
+    } else if (runtimeProcess.error) {
+      console.log("runtimeProcess.error", runtimeProcess.error);
+      console.error("Memory limit exceeded");
+      output = "Memory limit exceeded";
+    } else if (runtimeProcess.status !== null && runtimeProcess.status > 0) {
+      let runtime_error = JSON.parse(JSON.stringify(runtimeProcess.stderr));
+      const err_desc: string = String(
+        runtime_error.data
+          .map((buffcode: number) => String.fromCharCode(buffcode))
+          .join("")
+      );
+      console.error("Runtime error:", err_desc);
+      if (err_desc.trim() == "") {
+        output = "Runtime error";
+      } else {
+        output = err_desc;
+      }
+    } else {
+      output = runtimeProcess.stdout.toString();
+    }
+    console.log(runtimeProcess);
+  } catch (error) {
+    console.log(error);
   }
 
   cleanup();
